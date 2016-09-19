@@ -5,10 +5,10 @@
 using namespace yarp::os;
 
 void usage(void)
-{
+{    
     yInfo()<< "Parameters";
-    yInfo()<< "    --robot            : Robot name.";
-    yInfo()<< "    --autoconnect      : Autoconnect torque ports.";
+    yInfo()<< "    --name      : default is com2gui";
+    yInfo()<< "    --wholebody : default is wholeBodyDynamicsTree";
 }
 
 int main(int argc, char *argv[])
@@ -25,28 +25,26 @@ int main(int argc, char *argv[])
       usage();
       return 0;
   }
-
-  bool autoconnect=true;
-
-  if(rf.check("autoconnect") )
-  {
-      yInfo() << "autoconnect enabled.";
-      autoconnect=true;
-  }
   
-  bool ok=inPort.open("/com2gui/COM:i");
-  ok=ok && outPort.open("/com2gui/objects:o");
+  std::string name=rf.check("name",Value("com2gui")).asString();
+  std::string wholebody=rf.check("wholebody",Value("wholeBodyDynamicsTree")).asString();
+  
+  bool ok=inPort.open("/"+name+"/COM:i");
+  ok=ok && outPort.open("/"+name+"/objects:o");
   
   if (!ok) 
   {
-    std::cerr << "Could not open yarp ports - is yarpserver alive ?" << std::endl;
+    std::cerr << "Could not open yarp ports - is yarpserver running happily ?" << std::endl;
     return EXIT_FAILURE;
   }
-  if (autoconnect)
-  {
-    yarp.connect(outPort.getName(),"/iCubGui/objects");
-    yarp.connect("/wholeBodyDynamicsTree/com:o",inPort.getName());
-  }
+  
+  yarp.connect(outPort.getName(),"/iCubGui/objects");
+  yarp.connect("/"+wholebody+"/com:o",inPort.getName());
+  
+  yInfo() << "Configured: ";
+  yInfo() << "  name= " << name;
+  yInfo() << "  wholebody= " <<  wholebody;
+  
   int i=0;
   while (true)
   {
@@ -84,13 +82,7 @@ int main(int argc, char *argv[])
     obj.addInt(128);
     // transparency (0.0=invisible 1.0=solid)
     obj.addDouble(1.0);
-    
-    printf("Sending %s\n", obj.toString().c_str());
     outPort.write(true);
   }
-  //Bottle *in = inPort.read();                                                                                  
-  //if (in==NULL) {
-  //  fprintf(stderr, "Failed to read message\n");
-  //}
   return EXIT_SUCCESS;
 }
