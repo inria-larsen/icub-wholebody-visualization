@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
   
   if (!ok) 
   {
-    std::cerr << "Could not open yarp ports - is yarpserver running happily ?" << std::endl;
+    yError() << "Could not open yarp ports - is yarpserver running happily ?";
     return EXIT_FAILURE;
   }
   
@@ -43,14 +43,15 @@ int main(int argc, char *argv[])
   
   yInfo() << "Configured: ";
   yInfo() << "  name= " << name;
-  yInfo() << "  wholebody= " <<  wholebody;
+  yInfo() << "  wholebody= " <<  wholebody << " (reading from /"+wholebody+"/com:o)";
+  yInfo() << "  writing to /iCubGui/objects";
   
   int i=0;
   while (true)
   {
     Bottle *in = inPort.read();                                                                                  
     if (in==NULL) {
-      fprintf(stderr, "Failed to read message\n");
+      yError() << "Failed to read message";
       return EXIT_FAILURE;
     }
     double x=in->get(0).asDouble();
@@ -63,7 +64,7 @@ int main(int argc, char *argv[])
     obj.addString("object"); // command to add/update an object
     obj.addString("COM");
     // object dimensions in millimiters
-    // (it will be displayed as an ellipsoid with the tag "my_object_name")
+    // (it will be displayed as an ellipsoid with the tag "COM")
     obj.addDouble(100);
     obj.addDouble(100);
     obj.addDouble(100);
