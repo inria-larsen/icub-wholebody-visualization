@@ -1,4 +1,5 @@
 # torque_viewer
+![screenshot](https://raw.githubusercontent.com/inria-larsen/icub-wholebody-visualization/master/torque_viewer/res/Screenshot_20170301_160242.png)
 
 ## dependancies
 
