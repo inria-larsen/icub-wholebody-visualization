@@ -13,7 +13,7 @@ run dependancies:
 It has only been tested on linux so far (ubuntu 14.04 and ubuntu 16.04 known to
 work).
 
-## installation
+## build
 
 Nothing special:
 ```
@@ -21,8 +21,8 @@ mkdir build
 cd build
 cmake ../
 make 
-make install
 ```
+(no make install for now)
 
 ## usage
 
