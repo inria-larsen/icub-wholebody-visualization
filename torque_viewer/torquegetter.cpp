@@ -21,19 +21,25 @@ TorqueGetter::TorqueGetter(QGraphicsScene *scene, const std::string &name, yarp:
     {
       std::string joint_name=joint_list->get(i).asString();
       const yarp::os::Value &joint_xy=prop.findGroup("TORQUE_XY").find(joint_name);
-      if (!joint_xy.isNull())
+      const yarp::os::Value &joint_limits=prop.findGroup("TORQUE_LIMITS").find(joint_name);
+      
+      if (joint_xy.isList() && joint_limits.isList())
       {
         // TODO check if valid
         int x=joint_xy.asList()->get(0).asInt();
         int y=joint_xy.asList()->get(1).asInt();
         int offx=joint_xy.asList()->get(2).asInt();
         int offy=joint_xy.asList()->get(3).asInt();
-        items[i]=new TorqueItem(x,y,offx,offy,joint_name,scene);
+        
+        double min_torque=joint_limits.asList()->get(0).asDouble();
+        double max_torque=joint_limits.asList()->get(1).asDouble();
+        
+        items[i]=new TorqueItem(x,y,offx,offy,joint_name,scene,min_torque,max_torque);
       }
       else
       { 
         items[i]=NULL;
-        std::cerr << "cannot find joint position for " << joint_name << std::endl;
+        std::cerr << "cannot find joint position or limits for " << joint_name << std::endl;
       }
     }
     this->useCallback();
@@ -48,7 +54,10 @@ TorqueGetter::TorqueGetter(QGraphicsScene *scene, const std::string &name, yarp:
 
 TorqueGetter::~TorqueGetter()
 {
-  // TODO del content first
+  for (int i=0;i<nb_items;i++)
+  {
+    delete items[i];
+  }
   delete[] items;
 }
 

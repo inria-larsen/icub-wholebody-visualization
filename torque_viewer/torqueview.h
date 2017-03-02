@@ -12,6 +12,7 @@ class TorqueView : public QGraphicsView
 {    
 public:
     explicit TorqueView();
+    ~TorqueView();
     QGraphicsScene * getScene();
 protected:
     void resizeEvent(QResizeEvent *event);

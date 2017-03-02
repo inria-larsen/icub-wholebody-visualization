@@ -33,6 +33,8 @@ TorqueItem::TorqueItem(int x,int y,int offx,int offy,const std::string &name,QGr
 
 TorqueItem::~TorqueItem()
 {
+  delete rect;
+  delete text;
 }
 
 void TorqueItem::update(double torque)

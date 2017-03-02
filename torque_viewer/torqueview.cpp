@@ -9,14 +9,19 @@ using namespace yarp::os;
 
 TorqueView::TorqueView() : QGraphicsView()
 {
-    scene = new QGraphicsScene();
-    QPixmap pixmap(":/images/images/icub.png");
-    width=pixmap.size().width();
-    height=pixmap.size().height();
-    setProperty("verticalScrollBarPolicy",Qt::ScrollBarAlwaysOff);
-    setProperty("horizontalScrollBarPolicy",Qt::ScrollBarAlwaysOff);
-    QGraphicsPixmapItem *pixmap_item=scene->addPixmap(pixmap);
-    setScene(scene);
+  scene = new QGraphicsScene();
+  QPixmap pixmap(":/images/images/icub.png");
+  width=pixmap.size().width();
+  height=pixmap.size().height();
+  setProperty("verticalScrollBarPolicy",Qt::ScrollBarAlwaysOff);
+  setProperty("horizontalScrollBarPolicy",Qt::ScrollBarAlwaysOff);
+  QGraphicsPixmapItem *pixmap_item=scene->addPixmap(pixmap);
+  setScene(scene);
+}
+
+TorqueView::~TorqueView()
+{
+  delete scene; 
 }
 
 void TorqueView::resizeEvent(QResizeEvent *event)
@@ -27,5 +32,5 @@ void TorqueView::resizeEvent(QResizeEvent *event)
 
 QGraphicsScene *TorqueView::getScene()
 {
-    return scene;
+  return scene;
 }
