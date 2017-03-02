@@ -10,9 +10,22 @@ build dependancies:
 run dependancies:
 * icub with running wholebodydynamicstree
 
-It has only been tested on linux so fat (ubuntu 14.04 and ubuntu 16.04 known to
+It has only been tested on linux so far (ubuntu 14.04 and ubuntu 16.04 known to
 work).
 
 ## installation
 
+Nothing special:
+```
+mkdir build
+cd build
+cmake ../
+make 
+make install
+```
+
 ## usage
+
+* launch wholebodydynamicstree
+* run `torque_viewer --autoconnect`, see `torque_viewer --help` for additional
+  parameters.
