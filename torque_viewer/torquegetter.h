@@ -19,8 +19,9 @@ protected:
   int nb_items;
   TorqueItem **items;
   std::string name;
+  std::string prefix;
 public:
-    explicit TorqueGetter(QGraphicsScene *scene, const std::string &name,yarp::os::Property &prop);    
+    explicit TorqueGetter(QGraphicsScene *scene, const std::string &name, const std::string &prefix, yarp::os::Property &prop);    
     ~TorqueGetter();
 
     using yarp::os::BufferedPort<yarp::os::Bottle>::onRead;

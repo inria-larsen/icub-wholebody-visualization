@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
   std::vector<TorqueGetter*> torque_getters;
   yarp::os::Property prop;
   prop.fromConfigFile("torqueviewer.ini");
-
+  std::string prefix=prop.findGroup("MAIN").find("prefix").asString();   
   const yarp::os::Bottle & torques=prop.findGroup("TORQUE_PORTS");
   int size=torques.size()-1;
   torque_getters.resize(size);
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
   for(int i=0;i<size;i++)
   {
       std::string name=torques.get(i+1).asList()->get(0).asString();
-      torque_getters[i]=new TorqueGetter(scene,name,prop);
+      torque_getters[i]=new TorqueGetter(scene,name,prefix,prop);
   }
   if (autoconnect)
   {

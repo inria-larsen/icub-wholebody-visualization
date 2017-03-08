@@ -8,7 +8,7 @@
 
 using namespace yarp::os;
 
-TorqueGetter::TorqueGetter(QGraphicsScene *scene, const std::string &name, yarp::os::Property &prop) : BufferedPort<Bottle>(), scene(scene) , name(name)
+TorqueGetter::TorqueGetter(QGraphicsScene *scene, const std::string &name, const std::string &prefix, yarp::os::Property &prop) : BufferedPort<Bottle>(), scene(scene) , name(name), prefix(prefix)
 {   
   const yarp::os::Value &v=prop.findGroup("TORQUE_PORTS").find(name);
   if (!v.isNull())
@@ -63,7 +63,7 @@ TorqueGetter::~TorqueGetter()
 
 void TorqueGetter::autoconnect()
 {
-    Network::connect("/wholeBodyDynamicsTree/"+name+"/Torques:o","/torqueviewer/"+name+"/torques:i");
+    Network::connect("/"+prefix+"/"+name+"/Torques:o","/torqueviewer/"+name+"/torques:i");
 }
 
 void TorqueGetter::onRead(yarp::os::Bottle& b)
