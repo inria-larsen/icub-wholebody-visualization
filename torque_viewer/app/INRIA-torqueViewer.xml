@@ -1,0 +1,59 @@
+<application>
+<name>Torque viewer WBD (INRIA)</name>
+<dependencies>
+<port>/icub/left_arm/analog:o</port>
+<port>/wholeBodyDynamics/left_arm/Torques:o</port>
+</dependencies>
+    <module>
+        <name>iCubGui</name>
+        <node>icub01</node>
+        <parameters>--xpos 1000 --ypos 100 --width 370</parameters>
+        <stdio></stdio>
+        <tag>iCubGui</tag>
+    </module>
+    <module>
+        <name>torqueViewer</name>
+        <node>icub01</node>
+        <stdio></stdio>
+        <tag>torqueViewer</tag>
+    </module>
+ 
+
+ <connection>
+    <from>/wholeBodyDynamics/contacts:o</from>
+    <to>/iCubGui/forces</to>
+    <protocol>udp</protocol>
+  </connection>
+    <connection>
+        <from>/wholeBodyDynamics/head/Torques:o</from>
+        <to>/torqueviewer/head/torques:i</to>
+        <protocol>udp</protocol>
+    </connection>
+    <connection>
+        <from>/wholeBodyDynamics/right_arm/Torques:o</from>
+        <to>/torqueviewer/right_arm/torques:i</to>
+        <protocol>udp</protocol>
+    </connection>
+    <connection>
+        <from>/wholeBodyDynamics/left_arm/Torques:o</from>
+        <to>/torqueviewer/left_arm/torques:i</to>
+        <protocol>udp</protocol>
+    </connection>
+    <connection>
+        <from>/wholeBodyDynamics/right_leg/Torques:o</from>
+        <to>/torqueviewer/right_leg/torques:i</to>
+        <protocol>udp</protocol>
+    </connection>
+    <connection>
+        <from>/wholeBodyDynamics/left_leg/Torques:o</from>
+        <to>/torqueviewer/left_leg/torques:i</to>
+        <protocol>udp</protocol>
+    </connection>
+    <connection>
+        <from>/wholeBodyDynamics/torso/Torques:o</from>
+        <to>/torqueviewer/torso/torques:i</to>
+        <protocol>udp</protocol>
+    </connection>
+
+    
+</application>
