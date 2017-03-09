@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
   }
   
   std::string name=rf.check("name",Value("com2gui")).asString();
-  std::string wholebody=rf.check("wholebody",Value("wholeBodyDynamicsTree")).asString();
+  std::string wholebody=rf.check("wholebody",Value("wholeBodyDynamics")).asString();
   
   bool ok=inPort.open("/"+name+"/COM:i");
   ok=ok && outPort.open("/"+name+"/objects:o");
@@ -65,10 +65,10 @@ int main(int argc, char *argv[])
     obj.addString("COM");
     // object dimensions in mm
     // (it will be displayed as an ellipsoid with the tag "COM")
-    obj.addDouble(100);
-    obj.addDouble(100);
-    obj.addDouble(100);
-    // object position in mm
+    obj.addDouble(50);
+    obj.addDouble(50);
+    obj.addDouble(50);
+    // object position in millimiters
     // reference frame: X=fwd, Y=left, Z=up
     obj.addDouble(x);
     obj.addDouble(y);
