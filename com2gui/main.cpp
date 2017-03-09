@@ -38,8 +38,8 @@ int main(int argc, char *argv[])
     return EXIT_FAILURE;
   }
   
-  yarp.connect(outPort.getName(),"/iCubGui/objects");
-  yarp.connect("/"+wholebody+"/com:o",inPort.getName());
+  yarp.connect(outPort.getName(),"/iCubGui/objects","udp");
+  yarp.connect("/"+wholebody+"/com:o",inPort.getName(),"udp");
   
   yInfo() << "Configured: ";
   yInfo() << "  name= " << name;
@@ -63,12 +63,12 @@ int main(int argc, char *argv[])
     
     obj.addString("object"); // command to add/update an object
     obj.addString("COM");
-    // object dimensions in millimiters
+    // object dimensions in mm
     // (it will be displayed as an ellipsoid with the tag "COM")
     obj.addDouble(100);
     obj.addDouble(100);
     obj.addDouble(100);
-    // object position in millimiters
+    // object position in mm
     // reference frame: X=fwd, Y=left, Z=up
     obj.addDouble(x);
     obj.addDouble(y);
