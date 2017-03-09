@@ -63,7 +63,7 @@ TorqueGetter::~TorqueGetter()
 
 void TorqueGetter::autoconnect()
 {
-    Network::connect("/"+prefix+"/"+name+"/Torques:o","/torqueviewer/"+name+"/torques:i");
+    Network::connect("/"+prefix+"/"+name+"/Torques:o","/torqueviewer/"+name+"/torques:i","udp");
 }
 
 void TorqueGetter::onRead(yarp::os::Bottle& b)
