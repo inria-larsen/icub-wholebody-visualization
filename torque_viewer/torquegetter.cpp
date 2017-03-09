@@ -2,13 +2,12 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <yarp/os/all.h>
-#include <yarp/os/Property.h>
 #include "torquegetter.h"
 #include "torqueitem.h"
 
 using namespace yarp::os;
 
-TorqueGetter::TorqueGetter(QGraphicsScene *scene, const std::string &name, const std::string &prefix, yarp::os::Property &prop) : BufferedPort<Bottle>(), scene(scene) , name(name), prefix(prefix)
+TorqueGetter::TorqueGetter(QGraphicsScene *scene, const std::string &name, const std::string &prefix, yarp::os::ResourceFinder &prop) : BufferedPort<Bottle>(), scene(scene) , name(name), prefix(prefix)
 {   
   const yarp::os::Value &v=prop.findGroup("TORQUE_PORTS").find(name);
   if (!v.isNull())

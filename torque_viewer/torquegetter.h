@@ -6,7 +6,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsRectItem>
 #include <yarp/os/all.h>
-#include <yarp/os/Property.h>
+#include <yarp/os/ResourceFinder.h>
 #include "torqueitem.h"
 
 /**
@@ -21,7 +21,7 @@ protected:
   std::string name;
   std::string prefix;
 public:
-    explicit TorqueGetter(QGraphicsScene *scene, const std::string &name, const std::string &prefix, yarp::os::Property &prop);    
+    explicit TorqueGetter(QGraphicsScene *scene, const std::string &name, const std::string &prefix, yarp::os::ResourceFinder &rf);    
     ~TorqueGetter();
 
     using yarp::os::BufferedPort<yarp::os::Bottle>::onRead;

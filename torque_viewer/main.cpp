@@ -2,7 +2,6 @@
 #include <QApplication>
 #include <yarp/os/all.h>
 #include <yarp/os/ResourceFinder.h>
-#include <yarp/os/Property.h>
 #include "dialog.h"
 #include "torquegetter.h"
 
@@ -43,8 +42,14 @@ int main(int argc, char *argv[])
   Dialog w;
 
   std::vector<TorqueGetter*> torque_getters;
-  yarp::os::Property prop;
-  prop.fromConfigFile("torqueviewer.ini");
+//   yarp::os::Property prop;
+//   prop.fromConfigFile("torqueviewer.ini");
+  
+  ResourceFinder prop;
+  prop.setVerbose(); //logs searched directories
+  prop.setDefaultConfigFile("torqueviewer.ini"); //specifies a default configuration file
+  prop.configure(argc, argv);
+  
   std::string prefix=prop.findGroup("MAIN").find("prefix").asString();   
   const yarp::os::Bottle & torques=prop.findGroup("TORQUE_PORTS");
   int size=torques.size()-1;
