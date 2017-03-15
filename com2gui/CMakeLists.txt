@@ -8,7 +8,7 @@ include_directories(${YARP_INCLUDE_DIRS})
 list(APPEND CMAKE_MODULE_PATH ${YARP_MODULE_PATH})
 include(YarpInstallationHelpers)
 
-add_executable(com2gui main.cpp)
+add_executable(com2gui src/main.cpp)
 
 target_link_libraries(com2gui ${YARP_LIBRARIES})
 
