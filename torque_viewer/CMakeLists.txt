@@ -7,8 +7,15 @@ find_package(Qt5Core)
 find_package(Qt5Widgets)
 find_package(Qt5Gui)
 find_package(YARP REQUIRED)
-  
+find_package(ICUBcontrib REQUIRED) 
+list(APPEND CMAKE_MODULE_PATH ${YARP_MODULE_PATH})
+list(APPEND CMAKE_MODULE_PATH ${ICUB_MODULE_PATH})
+list(APPEND CMAKE_MODULE_PATH ${ICUBCONTRIB_MODULE_PATH})
+include(ICUBcontribHelpers)
+icubcontrib_set_default_prefix()
+include(ICUBcontribOptions)
 include_directories(${YARP_INCLUDE_DIRS})
+include_directories(${ICUB_INCLUDE_DIRS})
 
 list(APPEND CMAKE_MODULE_PATH ${YARP_MODULE_PATH})
 include(YarpInstallationHelpers)
@@ -25,5 +32,6 @@ install (TARGETS torqueviewer DESTINATION bin)
 
 # where to install ? config_data_dir does not work (not found by RF later on) so
 # we rely for now on the default data_dir - need to setup a context instead (TODO)
-yarp_install(FILES config/torqueviewer.ini DESTINATION ${YARP_DATA_INSTALL_DIR})
+# yarp_install(FILES config/torqueviewer.ini DESTINATION ${YARP_DATA_INSTALL_DIR})
 
+yarp_install(FILES config/torqueviewer.ini DESTINATION ${ICUBCONTRIB_CONTEXTS_INSTALL_DIR}/wholebody-visualization)

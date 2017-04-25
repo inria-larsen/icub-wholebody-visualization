@@ -46,7 +46,8 @@ int main(int argc, char *argv[])
 //   prop.fromConfigFile("torqueviewer.ini");
   
   ResourceFinder prop;
-  prop.setVerbose(); //logs searched directories
+  prop.setVerbose(); //logs searched directories    
+  prop.setDefaultContext("wholebody-visualization");
   prop.setDefaultConfigFile("torqueviewer.ini"); //specifies a default configuration file
   prop.configure(argc, argv);
   
